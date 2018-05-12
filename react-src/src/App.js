@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import axios from 'axios';
 import PostHistoryTable from './components/PostHistoryTable.js';
 import PostContentGraph from './components/PostContentGraph.js';
-import axios from 'axios';
+import './App.css';
 
 class App extends Component {
   
@@ -13,14 +13,14 @@ class App extends Component {
   
   render() {
     return (
-      <div className="container text-center ">
-          <div className="row">
-            <div className="cols-4 ml-1">
-              <PostHistoryTable />
-            </div>
-            <div className="cols-4 ml-1">
-              <PostContentGraph />
-            </div>
+      <div className="container">
+          < div className="row border-between">
+              <div className="col-sm">
+                <PostHistoryTable data={this.props.tableData} />
+              </div>
+              <div className="col-sm">
+                <PostContentGraph data={this.props.PostData} />
+              </div>
           </div>
       </div>
     );
