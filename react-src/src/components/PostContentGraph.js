@@ -315,19 +315,70 @@ class PostContentGraph extends Component {
    
       render() {
             console.log('state: ',this.state);
+            const date = [];
+            const month = [];
+            this.getWeekdates().forEach(element => {
+                date.push(element.date);
+                month.push(element.month);
+            });
         return(
          <VictoryChart
             width={580}
-            domainPadding={30}>
-            <VictoryStack
+            domainPadding={130}>
+            
+            <VictoryAxis
+                tickValues={date}
+                tickFormat={ (t, i) => {return t + ' '+ month[i]} }
+        />
+
+            {/* <VictoryStack
                 colorScale={this.state.colors}>
                 {this.state.myDataset.values.map((data, i) => {
+                    console.    log(data);
                     return <VictoryBar x="date" y="value" key={i} data={data}/>
                 })}
-            </VictoryStack>
+            </VictoryStack> */}
         </VictoryChart>
         );
       }
+
+        getWeekdates() {
+            const week = [];
+            const month = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+            ];
+
+            let today = new Date();
+           
+            for(let i = 1; i <= 7; i++) {
+                
+                let date = today.getDate();
+                week.push({
+                           month: month[today.getMonth()], 
+                           date: date
+                        });
+                //week.push(month[today.getMonth()] + ' ' + (date < 10) ? '0' + date : date);
+            
+                if(date === 1)
+                    today = new Date(Date.now() - 86400000);
+                else
+                    today.setDate(date - 1);    
+            }
+            console.log(week);
+            return week;   
+
+        }
 }
 
 export default PostContentGraph;

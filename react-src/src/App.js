@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PostHistoryTable from './components/PostHistoryTable.js';
 import PostContentGraph from './components/PostContentGraph.js';
@@ -8,7 +9,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    const state = {post: [], profile: []};
+    //const state = {post: [], profile: []};
   }
   
   render() {
@@ -55,4 +56,59 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+      tableData: state.profile,
+      PostDate: state.posts
+    } 
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      fetchProfileData: () => {
+        console.log("in fetch products");
+        dispatch(dispatch => {
+          axios.get('http://localhost:5000/data/profiles')
+            .then((response) => {
+              console.log("response: ", response);
+              if (Array.isArray(response.data)) {
+                return dispatch({
+                  type: "FETCH_PROFILES_SUCCESS",
+                  payload: response.data
+                });
+              }
+            })
+            .catch((error) => {
+              return dispatch({
+                type: "FETCH_PROFILES_ERROR",
+                payload: error
+              });
+            });
+        });
+      },
+      fetchPostData: () => {
+        console.log("in fetch products");
+        dispatch(dispatch => {
+          axios.get('http://localhost:5000/data/profiles')
+            .then((response) => {
+              console.log("response: ", response);
+              if (Array.isArray(response.data)) {
+                return dispatch({
+                  type: "FETCH_POSTS_SUCCESS",
+                  payload: response.data
+                });
+              }
+            })
+            .catch((error) => {
+              return dispatch({
+                type: "FETCH_POSTS_ERROR",
+                payload: error
+              });
+            });
+        });
+      }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+//export default App;
