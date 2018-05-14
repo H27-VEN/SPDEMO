@@ -1,6 +1,10 @@
 # SPDEMO
 A Demo React App that demonstrate the components of socialpilot dashboard.
 
+# PREVIEW
+
+[Imgur](https://i.imgur.com/BdLHsAj.png)
+
 # INSTALLATION
 
 clone the repo
