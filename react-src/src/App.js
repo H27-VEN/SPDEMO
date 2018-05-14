@@ -16,23 +16,23 @@ class App extends Component {
   render() {
       console.log("tableData: ", this.props.tabledata);
       console.log("GraphData: ", this.props.postdata);
-      // if(!Array.isArray(this.props.tabledata.data) || !Array.isArray(this.props.postdata.data)) {
-      //     return (<div className="text-center">...Loading</div>);
-      // }
-     /* else { */
+      if(!Array.isArray(this.props.tabledata.data) || !Array.isArray(this.props.postdata.data)) {
+          return (<div className="text-center">...Loading</div>);
+      }
+      else { 
         return (
           <div className="container">
               <div className="row border-between">
-                  <div className="col-sm">
+                  <div className="col-sm-5">
                     <PostHistoryTable data={this.props.tabledata.data} />
                   </div>
-                  <div className="col-sm">
+                  <div className="col-sm-7">
                     <PostContentGraph data={this.props.postdata.data} />
                   </div>
               </div>
           </div>
         );
-    // }
+     }
 }
   componentDidMount() {
       this.props.fetchPostData();
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch) => {
       fetchProfileData: () => {
         console.log("in fetch profiles");
         dispatch(dispatch => {
-          axios.get('http://localhost:5000/data/profiles')
+          axios.get('http://localhost:8000/data/profiles')
             .then((response) => {
               console.log("response: ", response);
               if (Array.isArray(response.data)) {
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => {
       fetchPostData: () => {
         console.log("in fetch posts");
         dispatch(dispatch => {
-          axios.get('http://localhost:5000/data/posts')
+          axios.get('http://localhost:8000/data/posts')
             .then((response) => {
               console.log("response: ", response);
               if (Array.isArray(response.data)) {

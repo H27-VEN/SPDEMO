@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryAxis, VictoryStack, VictoryBar, VictoryLine } from 'victory';
+import { VictoryChart, VictoryAxis, VictoryStack, VictoryBar, VictoryLine, VictoryTheme } from 'victory';
 import './PostContentGraph.css';
 
 
@@ -27,23 +27,19 @@ class PostContentGraph extends Component {
             const image = [];
             const video = [];
             for(let i = 0; i < this.props.data.length; i++) {
-                text.push(
-                            {
-                             date: this.props.data[i].date.split('/')[0],
-                             count: this.props.data[i].text 
-                            }
-                        );
-                image.push({
-
-                            date: this.props.data[i].date.split('/')[0],
-                            count: this.props.data[i].images
-                    });
+                text.unshift({
+                    date: parseInt(this.props.data[i].date.split('/')[0]),
+                    count: this.props.data[i].text              
+                });
+                image.unshift({
+                    date: parseInt(this.props.data[i].date.split('/')[0]),
+                    count: this.props.data[i].images
+                });
                 
-                video.push({
-
-                        date: this.props.data[i].date.split('/')[0],
-                        count: this.props.data[i].videos
-                    });
+                video.unshift({
+                    date: parseInt(this.props.data[i].date.split('/')[0]),
+                    count: this.props.data[i].videos
+                });
                 
                         
             }
@@ -53,33 +49,36 @@ class PostContentGraph extends Component {
             console.log("image: ", image);
             const date = [];
             const month = [];
+            const comb = []
             this.getWeekdates().forEach(element => {
                 date.push(element.date);
                 month.push(element.month);
+                comb.push(element.date + ' ' + element.month);
             });
-        return(
-         <VictoryChart
-            domainPadding={130}>
+            console.log("date: ",date);
+            console.log("comb: ", comb);
             
-            <VictoryAxis
-                domain={{ y: [0, 50] }}
-                tickValues={date}
-                tickFormat={ (t, i) => { return t + ' '+ month[i]} }   
-            />
+        return(
+            <VictoryChart    
+                width={800}
+                domainPadding={50}
+                theme={VictoryTheme.material}
+            >
+                <VictoryAxis
+                    tickValues={date}
+                    tickFormat={comb}
+                />
+                <VictoryAxis
+                    dependentAxis
+                        //tickFormat={(x) => (console.log("tickformat: " + x ))}
+                />
+                <VictoryStack colorScale={this.state.colors}>  
+                    <VictoryBar data={text}  x="date" y="count"  />
+                    <VictoryBar data={image} x="date" y="count"  />
+                    <VictoryBar data={video} x="date" y="count"  />
+                </VictoryStack> 
+            </VictoryChart>
 
-            {/* <VictoryAxis
-               
-                dependentAxis
-                tickFormat={(y) => { while(y <= 50) {`${y}P`} } }
-            />
- */}
-            <VictoryStack
-                colorScale={this.state.colors}>
-                <VictoryBar x="date" y="count" data={text} />
-                <VictoryBar x="date" y="count" data={image} />
-                <VictoryBar x="date" y="count" data={video} />
-            </VictoryStack> 
-        </VictoryChart>
         );
       }
 
