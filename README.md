@@ -1,5 +1,5 @@
 # SPDEMO
-A Demo React App that demonstrate the components of socialpilot dashboard ### still work in progress.
+A Demo React App that demonstrate the components of socialpilot dashboard **still work in progress**.
 
 # PREVIEW
 
