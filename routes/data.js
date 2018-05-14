@@ -36,14 +36,14 @@ function date(num) {
 }
 
 const Profiles = [
-                    {profile: "facebook", userid: "user1", queuedPost: 10, ErrorPost: 0},
-                    {profile: "linkedIn", userid: "user2", queuedPost: 5, ErrorPost: 0},
-                    {profile: "Instagram", userid: "user3", queuedPost: 6, ErrorPost: 0}                
+                  {profile: "facebook", userid: "user1", queuedPost: 10, ErrorPost: 0},
+                  {profile: "linkedIn", userid: "user2", queuedPost: 5, ErrorPost: 0},
+                  {profile: "Instagram", userid: "user3", queuedPost: 6, ErrorPost: 0}                
                 ];
 const Post =  [
-                {id: 1, text: 5, images: 0, videos: 0, date: date(0) },
-                {id: 2, text: 2, images: 1, videos: 0, date: date(1) },
-                {id: 3, text: 4, images: 2, videos: 0, date: date(2) },
+                {id: 1, text: 5, images: 0, videos: 0, date: date(0)},
+                {id: 2, text: 2, images: 1, videos: 0, date: date(1)},
+                {id: 3, text: 4, images: 2, videos: 0, date: date(2)},
               ];
 
 router.get('/posts', (req, res) => {

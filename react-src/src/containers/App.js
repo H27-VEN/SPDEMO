@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import PostHistoryTable from './components/PostHistoryTable.js';
-import PostContentGraph from './components/PostContentGraph.js';
+import PostHistoryTable from '../components/PostHistoryTable.js';
+import PostContentGraph from '../components/PostContentGraph.js';
 import './App.css';
 
 class App extends Component {
   
   constructor(props) {
     super(props);
-    const state = {post: [], profile: []};
     console.log("App props: ", props);
   }
   
@@ -96,4 +95,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-//export default App;
+

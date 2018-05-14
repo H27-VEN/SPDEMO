@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './PostHistoryTable.css';
 
 
-class PostHistoryTable extends Component {
+const PostHistoryTable = (props) => {
     
-    render() {
-        console.log("In PostHistoryTable: ",this.props.data);
-        const tablerow = [];
-        for(let i = 0; i < this.props.data.length; i++) {
-           tablerow[i] = <tr key={i}>
-                            <td>{this.props.data[i].userid}</td>
-                            <td>{this.props.data[i].queuedPost}</td>
-                            <td>{this.props.data[i].ErrorPost}</td>
+    console.log("In PostHistoryTable: ",props.data);
+    const tablerow = [];
+    for(let i = 0; i < props.data.length; i++) {
+        tablerow[i] = <tr key={i}>
+                            <td>{props.data[i].userid}</td>
+                            <td>{props.data[i].queuedPost}</td>
+                            <td>{props.data[i].ErrorPost}</td>
                         </tr>
-            }
+    }
         
-        return (
+    return (
         <div>
             <h2>Posting History</h2>
             <table className="table table-sm">
@@ -26,12 +25,10 @@ class PostHistoryTable extends Component {
                         <th scope="col">Errors</th>
                     </tr>
                 </thead>
-                <tbody>{tablerow}</tbody>
+            <tbody>{tablerow}</tbody>
             </table>
         </div>
-        );
-    
-  }
+    );
 }
 
 export default PostHistoryTable;
