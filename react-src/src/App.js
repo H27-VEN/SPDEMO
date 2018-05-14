@@ -9,64 +9,49 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    //const state = {post: [], profile: []};
+    const state = {post: [], profile: []};
+    console.log("App props: ", props);
   }
   
   render() {
-    return (
-      <div className="container">
-          < div className="row border-between">
-              <div className="col-sm">
-                <PostHistoryTable data={this.props.tableData} />
-              </div>
-              <div className="col-sm">
-                <PostContentGraph data={this.props.PostData} />
+      console.log("tableData: ", this.props.tabledata);
+      console.log("GraphData: ", this.props.postdata);
+      // if(!Array.isArray(this.props.tabledata.data) || !Array.isArray(this.props.postdata.data)) {
+      //     return (<div className="text-center">...Loading</div>);
+      // }
+     /* else { */
+        return (
+          <div className="container">
+              <div className="row border-between">
+                  <div className="col-sm">
+                    <PostHistoryTable data={this.props.tabledata.data} />
+                  </div>
+                  <div className="col-sm">
+                    <PostContentGraph data={this.props.postdata.data} />
+                  </div>
               </div>
           </div>
-      </div>
-    );
-  }
-
-  componentDidMount() {
-      this.fetchPostData();
-      this.fetchProfileData();
-  }
-
-  fetchPostData() {
-    
-    axios.get('http://localhost:5000/data/posts')
-    .then(function (response) {
-      console.log("Post Data: ",response);
-    })
-    
-    .catch(function (error) {
-      console.log("Post Data Error: ", error);
-    }); 
-  }
-
-  fetchProfileData() {
-    axios.get('http://localhost:5000/data/profiles')
-    .then(function (response) {
-      console.log("Profile Data: ",response);
-    })
-    
-    .catch(function (error) {
-      console.log("Profile Data: ", error);
-    }); 
-  }
+        );
+    // }
 }
+  componentDidMount() {
+      this.props.fetchPostData();
+      this.props.fetchProfileData();
+  }
+
+}  
 
 const mapStateToProps = (state) => {
     return {
-      tableData: state.profile,
-      PostDate: state.posts
+      tabledata: state.profile,
+      postdata: state.posts
     } 
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
       fetchProfileData: () => {
-        console.log("in fetch products");
+        console.log("in fetch profiles");
         dispatch(dispatch => {
           axios.get('http://localhost:5000/data/profiles')
             .then((response) => {
@@ -87,9 +72,9 @@ const mapDispatchToProps = (dispatch) => {
         });
       },
       fetchPostData: () => {
-        console.log("in fetch products");
+        console.log("in fetch posts");
         dispatch(dispatch => {
-          axios.get('http://localhost:5000/data/profiles')
+          axios.get('http://localhost:5000/data/posts')
             .then((response) => {
               console.log("response: ", response);
               if (Array.isArray(response.data)) {

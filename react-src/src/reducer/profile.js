@@ -11,7 +11,7 @@ export default function profile(state={}, action) {
         break;
 
         default:
-            newState = {...state, data: action.payload};
+            newState = {...state};
         break;
     
     }
