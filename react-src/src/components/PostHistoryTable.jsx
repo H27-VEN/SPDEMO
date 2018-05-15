@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import facebook from '../images/icons-facebook.png';
+import linkedin from '../images/icons-linkedin.png';
+import instagram from '../images/icons-instagram.png';
 import './PostHistoryTable.css';
 
 
 const PostHistoryTable = (props) => {
   // console.log("In PostHistoryTable:", props.data);
   const tablerow = [];
+  const icons = { facebook, linkedin, instagram };
   for (let i = 0; i < props.data.length; i += 1) {
     tablerow[i] = (
       <tr key={i}>
-        <td>{props.data[i].userid}</td>
+        <td>
+          <img src={icons[props.data[i].profile.toLowerCase()]} alt="profile-icon" />
+          <span>{props.data[i].userid}</span>
+        </td>
         <td>{props.data[i].queuedPost}</td>
         <td>{props.data[i].ErrorPost}</td>
       </tr>);
