@@ -33,7 +33,7 @@ const PostHistoryTable = (props) => {
 };
 
 PostHistoryTable.propTypes = {
-  data: PropTypes.arrayOf,
+  data: PropTypes.arrayOf(PropTypes.object),
   queuedPost: PropTypes.number,
   ErrorPost: PropTypes.number,
   userid: PropTypes.string,

@@ -108,7 +108,7 @@ const PostContentGraph = (props) => {
 };
 
 PostContentGraph.propTypes = {
-  data: PropTypes.arrayOf,
+  data: PropTypes.arrayOf(PropTypes.object),
   date: PropTypes.string,
   images: PropTypes.number,
   text: PropTypes.number,
