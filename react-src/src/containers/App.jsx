@@ -14,9 +14,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log('props: ', this.props);
-    // console.log('tableData: ', this.props.tabledata);
-    // console.log('GraphData: ', this.props.postdata);
     if ((this.props.tabledata.data.length === 0 || this.props.postdata.data.length === 0) &&
     (this.props.tabledata.error === null && this.props.postdata.error === null)) {
       return (<div className="text-center">...Loading</div>);
@@ -53,53 +50,38 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchProfileData: () => {
-    // console.log('in fetch profiles');
-    dispatch(() => {
-      axios.get('http://localhost:8000/data/profiles')
-        .then((response) => {
-          // console.log('response: ', response);
-          if (Array.isArray(response.data)) {
-            dispatch({
-              type: 'FETCH_PROFILES_SUCCESS',
-              payload: response.data,
-            });
-          }
-          return dispatch;
-        })
-        .catch((error) => {
-          // console.log(typeof error);
-          dispatch({
-            type: 'FETCH_POSTS_ERROR',
-            payload: error,
+    dispatch(
+      {
+        type: 'FETCH_PROFILES',
+        payload: new Promise((resolve, reject) => {
+          axios.get('http://localhost:8000/data/profiles')
+          .then((response) => {
+            if(Array.isArray(response.data)) {
+              resolve(response.data);
+            }
+          })
+          .catch((error) => {
+            reject(error);
           });
-          return dispatch;
-        });
-    });
-  },
+        })
+      });
+    },
   fetchPostData: () => {
-    // console.log('in fetch posts');
-    dispatch(() => {
-      axios.get('http://localhost:8000/data/posts')
-        .then((response) => {
-          // console.log('response: ', response);
-          if (Array.isArray(response.data)) {
-            dispatch({
-              type: 'FETCH_POSTS_SUCCESS',
-              payload: response.data,
-            });
-          }
-          return dispatch;
-        })
-        .catch((error) => {
-          // console.log(typeof error);
-          dispatch({
-            type: 'FETCH_POSTS_ERROR',
-            payload: error,
+    dispatch({
+              type: 'FETCH_POSTS',
+              payload: new Promise((resolve, reject) => {
+                axios.get('http://localhost:8000/data/posts')
+                  .then((response) => {
+                    if (Array.isArray(response.data)) {
+                      resolve(response.data);
+                    }
+                  })
+                  .catch((error) => {
+                      reject(error);
+                  });
+              })
           });
-          return dispatch;
-        });
-    });
-  },
+      },
 });
 
 App.propTypes = {
@@ -117,4 +99,3 @@ App.defaultProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

@@ -1,11 +1,12 @@
 export default function profile(state = { data: [], error: null }, action) {
   let newState;
+  console.log('action.type: ', action.type);
   switch (action.type) {
-    case 'FETCH_PROFILES_SUCCESS':
+    case 'FETCH_PROFILES_FULFILLED':
       newState = { ...state, data: action.payload, error: null };
       break;
 
-    case 'FETCH_PROFILES_ERROR':
+    case 'FETCH_PROFILES_REJECTED':
       newState = { ...state, data: [], error: action.payload };
       break;
 
